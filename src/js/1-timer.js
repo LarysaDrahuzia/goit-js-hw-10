@@ -14,6 +14,8 @@ const secondsEl = document.querySelector('[data-seconds]');
 let userSelectedDate = null;
 let intervalBack = null;
 
+btnDateStart.disabled = true;
+
 flatpickr(inputDatePicker, {
   enableTime: true,
   time_24hr: true,
@@ -21,8 +23,10 @@ flatpickr(inputDatePicker, {
   minuteIncrement: 1,
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
-    if (userSelectedDate <= this.defaultDate) {
+
+    if (userSelectedDate <= new Date()) {
       btnDateStart.disabled = true;
+
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
