@@ -4,33 +4,35 @@ import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const inputDateTime = document.querySelector('#datetime-picker');
-const btnDateTime = document.querySelector('[data-start]');
+const inputDatePicker = document.querySelector('#datetime-picker');
+const btnDateStart = document.querySelector('[data-start]');
 const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
 
 let userSelectedDate = null;
+let intervalBack = null;
 
-flatpickr(inputDateTime, {
+flatpickr(inputDatePicker, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    if (selectedDates[0] > this.defaultDate) {
-      userSelectedDate = selectedDates[0];
-      btnDateTime.disabled = false;
-      iziToast.success({
-        title: 'Success',
-        message: 'Valid date selected',
-      });
-    } else {
-      btnDateTime.disabled = true;
+    userSelectedDate = selectedDates[0];
+    if (userSelectedDate <= this.defaultDate) {
+      btnDateStart.disabled = true;
       iziToast.error({
         title: 'Error',
         message: 'Please choose a date in the future',
+      });
+    } else {
+      btnDateStart.disabled = false;
+
+      iziToast.success({
+        title: 'Success',
+        message: 'Valid date selected!',
       });
     }
   },
@@ -54,32 +56,31 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
+
 const addLeadingZero = value => value.toString().padStart(2, '0');
 
-btnDateTime.addEventListener('click', () => {
-  if (!userSelectedDate) return;
+btnDateStart.addEventListener('click', () => {
+  btnDateStart.disabled = true;
+  inputDatePicker.disabled = true;
 
-  clearInterval(timerBack);
-
-  const timerBack = setInterval(() => {
+  intervalBack = setInterval(() => {
     const nowDate = new Date();
     const timeResult = userSelectedDate - nowDate;
 
-    const { days, hours, minutes, seconds } = convertMs(timeLeft);
+    const { days, hours, minutes, seconds } = convertMs(timeResult);
 
     daysEl.textContent = addLeadingZero(days);
     hoursEl.textContent = addLeadingZero(hours);
     minutesEl.textContent = addLeadingZero(minutes);
     secondsEl.textContent = addLeadingZero(seconds);
 
-    if (timeResult <= 0) {
-      clearInterval(timerBack);
-      daysEl.textContent =
-        hoursEl.textContent =
-        minutesEl.textContent =
-        secondsEl.textContent =
-          '00';
-      return;
+    const isTimerStop = [days, hours, minutes, seconds].every(
+      value => value === 0
+    );
+
+    if (isTimerStop) {
+      clearInterval(intervalBack);
+      inputDatePicker.disabled = false;
     }
   }, 1000);
 });

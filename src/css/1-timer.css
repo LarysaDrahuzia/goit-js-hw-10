@@ -3,6 +3,10 @@
   margin-right: auto;
 }
 
+.main-title {
+  color: darkcyan;
+}
+
 .date-time {
   width: 264px;
   height: 34px;
