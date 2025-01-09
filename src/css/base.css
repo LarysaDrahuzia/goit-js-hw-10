@@ -25,6 +25,11 @@ body {
 main {
   flex-grow: 1;
 }
+
+.main-title {
+  text-align: center;
+}
+
 main:has(.back-link) {
   text-align: center;
 }

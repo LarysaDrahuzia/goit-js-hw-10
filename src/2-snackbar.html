@@ -8,10 +8,42 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <a class="back-link" href="./index.html">Go back</a>
     <main>
-      <div class="container">
-        <a class="back-link" href="./index.html">Go back</a>
-        <h1 class="main-title">Snackbar</h1>
+      <div class="container snackbar-container">
+        <h1 class="main-title">Promise generator</h1>
+        <form class="form">
+          <label class="form-label">
+            Delay (ms)
+            <input class="form-input" type="number" name="delay" required />
+          </label>
+
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">State</legend>
+            <label class="radio-label">
+              <input
+                class="radio-input"
+                type="radio"
+                name="state"
+                value="fulfilled"
+                required
+              />
+              Fulfilled
+            </label>
+            <label>
+              <input
+                class="radio-input"
+                type="radio"
+                name="state"
+                value="rejected"
+                required
+              />
+              Rejected
+            </label>
+          </fieldset>
+
+          <button class="form-btn" type="submit">Create notification</button>
+        </form>
       </div>
     </main>
     <script type="module" src="./js/2-snackbar.js"></script>
