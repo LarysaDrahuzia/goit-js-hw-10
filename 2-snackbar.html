@@ -7,13 +7,47 @@
     <title>Snackbar</title>
     <script type="module" crossorigin src="/goit-js-hw-10/2-snackbar.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/modulepreload-polyfill-B5Qt9EMX.js">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-10/assets/styles-DH-wy7zy.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-10/assets/vendor-BbbuE1sJ.js">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-10/assets/vendor-CZjNVMTf.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-10/assets/styles-eM0xLht5.css">
   </head>
   <body>
+    <a class="back-link" href="./index.html">Go back</a>
     <main>
-      <div class="container">
-        <a class="back-link" href="./index.html">Go back</a>
-        <h1 class="main-title">Snackbar</h1>
+      <div class="container snackbar-container">
+        <h1 class="main-title">Promise generator</h1>
+        <form class="form">
+          <label class="form-label">
+            Delay (ms)
+            <input class="form-input" type="number" name="delay" required />
+          </label>
+
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">State</legend>
+            <label class="radio-label">
+              <input
+                class="radio-input"
+                type="radio"
+                name="state"
+                value="fulfilled"
+                required
+              />
+              Fulfilled
+            </label>
+            <label>
+              <input
+                class="radio-input"
+                type="radio"
+                name="state"
+                value="rejected"
+                required
+              />
+              Rejected
+            </label>
+          </fieldset>
+
+          <button class="form-btn" type="submit">Create notification</button>
+        </form>
       </div>
     </main>
   </body>
